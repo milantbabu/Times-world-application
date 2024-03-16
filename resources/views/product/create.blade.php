@@ -1,0 +1,110 @@
+@extends('layouts.app')
+@section('title')
+ Create Product
+@endsection
+
+@section('content')
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4">Create Product</h1>
+
+    <div class="row">
+
+      <div class="col-lg-12">
+
+        <!-- Circle Buttons -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Product | Create</h6>
+          </div>
+          <div class="card-header-button">
+              {{-- Buttons here --}}
+          </div>
+          <div class="card-body">
+
+            <form action="#" method="post" id="product_form">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="title">Title <i class="asterisk">*</i></label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Product Title">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="image">Upload Image </label>
+                        <input type="file" class="form-control" name="image" id="image" accept="image/png, image/jpeg, image/jpg">
+                        <span><small>Supports .jpeg, .jpg, .png | Max 2 MB</small></span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="description">Description <i class="asterisk">*</i></label>
+                        <textarea name="description" id="description" class="form-control" rows="5" placeholder="Description"></textarea>
+                    </div>
+                   <div class="form-group col-md-12 repeat-from">
+                        <label>Variants </label>
+                        <div class="row" id="appended-form{{$counter}}">
+                            <div class="form-group col-md-6">
+                                <label for="size_title"> Size</label>
+                                <input type="text" class="form-control" id="size_title" name="size_title[]"
+                                aria-describedby="basic-addon1" placeholder="Size" >
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="color_title">Color</label>
+                                <input type="text" class="form-control" id="color_title"
+                                name="color_title[]" aria-describedby="basic-addon1"
+                                placeholder="Color">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button type="button" class="btn btn-primary add-more">Add More</button>
+                    </div>
+                    <div class="form-group  col-md-6">
+                        <button type="button" class="btn btn-danger remove" @if($counter <=1) style="display: none" @endif> Remove</button>
+                    </div>
+                    <input type="hidden" name="id" id="id">
+
+                    <div class="form-group col-md-12">
+                      <button type="submit" id="form_submit" class="btn btn-success btn-icon-split float-right">
+                          <span class="icon text-white-50">
+                          <i class="fas fa-check"></i>
+                          </span>
+                          <span class="text">Save</span>
+                      </button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<div class="row from-content" style="display: none">
+    <div class="form-group col-md-6">
+        <label for="size_title"> Size </label>
+        <input type="text" class="form-control" id="size_title" name="size_title[]"
+        aria-describedby="basic-addon1" placeholder="Size">
+    </div>
+
+    <div class="form-group col-md-6">
+        <label for="color_title">Color</label>
+        <input type="text" class="form-control" id="color_title"
+            name="color_title[]" aria-describedby="basic-addon1"
+            placeholder="Color">
+    </div>
+</div>
+
+@endsection
+
+@section('scripts')
+    <script>
+        let page = 'create';
+        let formCounter = "{{ $counter }}";
+        let storeURL = "{{ route('storeProduct') }}";
+    </script>
+     <script src="{{asset('assets/js/jquery-validation-1.19.1/dist/jquery.validate.min.js')}}"></script>
+    <script src="{{ asset('assets/js/product.js') }}"></script>
+@endsection
